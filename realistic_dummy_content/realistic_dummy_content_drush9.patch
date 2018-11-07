@@ -1,0 +1,74 @@
+diff --git a/realistic_dummy_content/api/composer.json b/realistic_dummy_content/api/composer.json
+new file mode 100644
+index 0000000..8864644
+--- /dev/null
++++ b/realistic_dummy_content/api/composer.json
+@@ -0,0 +1,15 @@
++{
++    "name": "org/realistic_dummy_content_api",
++    "description": "This extension provides new commands for Drush.",
++    "type": "drupal-drush",
++    "require": {
++        "php": ">=5.6.0"
++    },
++    "extra": {
++        "drush": {
++            "services": {
++                "drush.services.yml": "^9"
++            }
++        }
++    }
++}
+\ No newline at end of file
+diff --git a/realistic_dummy_content/api/drush.services.yml b/realistic_dummy_content/api/drush.services.yml
+new file mode 100644
+index 0000000..5afe191
+--- /dev/null
++++ b/realistic_dummy_content/api/drush.services.yml
+@@ -0,0 +1,5 @@
++services:
++  realistic_dummy_content_api.commands:
++    class: \Drupal\realistic_dummy_content_api\Commands\RealisticDummyContentApiCommands
++    tags:
++      - { name: drush.command }
+diff --git a/realistic_dummy_content/api/src/Commands/RealisticDummyContentApiCommands.php b/realistic_dummy_content/api/src/Commands/RealisticDummyContentApiCommands.php
+new file mode 100644
+index 0000000..08f3969
+--- /dev/null
++++ b/realistic_dummy_content/api/src/Commands/RealisticDummyContentApiCommands.php
+@@ -0,0 +1,35 @@
++<?php
++
++namespace Drupal\realistic_dummy_content_api\Commands;
++
++use Drush\Commands\DrushCommands;
++use Drupal\realistic_dummy_content_api\includes\RealisticDummyContentDrushLog;
++
++/**
++ * A Drush commandfile.
++ *
++ * In addition to this file, you need a drush.services.yml
++ * in root of your module, and a composer.json file that provides the name
++ * of the services file to use.
++ *
++ * See these files for an example of injecting Drupal services:
++ *   - http://cgit.drupalcode.org/devel/tree/src/Commands/DevelCommands.php
++ *   - http://cgit.drupalcode.org/devel/tree/drush.services.yml
++ */
++class RealisticDummyContentApiCommands extends DrushCommands {
++
++  /**
++   * Generates realistic dummy content by looking in each active module for a file called realistic_dummy_content/recipe/module_name.recipe.inc, which should contain a subclass of RealisticDummyContentRecipe called module_name_realistic_dummy_content_recipe with a run() method.
++   *
++   *
++   * @command generate:realistic
++   * @aliases grc,generate-realistic
++   */
++  public function realistic() {
++    // See bottom of https://weitzman.github.io/blog/port-to-drush9 for details on what to change when porting a
++    // legacy command.
++      module_load_include('php', 'realistic_dummy_content_api', 'src/includes/RealisticDummyContentDrushLog');
++      realistic_dummy_content_api_apply_recipe(new RealisticDummyContentDrushLog());
++  }
++
++}
