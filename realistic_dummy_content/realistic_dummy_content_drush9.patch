@@ -1,8 +1,8 @@
-diff --git a/realistic_dummy_content/api/composer.json b/realistic_dummy_content/api/composer.json
+diff --git a/api/composer.json b/api/composer.json
 new file mode 100644
 index 0000000..8864644
 --- /dev/null
-+++ b/realistic_dummy_content/api/composer.json
++++ b/api/composer.json
 @@ -0,0 +1,15 @@
 +{
 +    "name": "org/realistic_dummy_content_api",
@@ -20,22 +20,22 @@ index 0000000..8864644
 +    }
 +}
 \ No newline at end of file
-diff --git a/realistic_dummy_content/api/drush.services.yml b/realistic_dummy_content/api/drush.services.yml
+diff --git a/api/drush.services.yml b/api/drush.services.yml
 new file mode 100644
 index 0000000..5afe191
 --- /dev/null
-+++ b/realistic_dummy_content/api/drush.services.yml
++++ b/api/drush.services.yml
 @@ -0,0 +1,5 @@
 +services:
 +  realistic_dummy_content_api.commands:
 +    class: \Drupal\realistic_dummy_content_api\Commands\RealisticDummyContentApiCommands
 +    tags:
 +      - { name: drush.command }
-diff --git a/realistic_dummy_content/api/src/Commands/RealisticDummyContentApiCommands.php b/realistic_dummy_content/api/src/Commands/RealisticDummyContentApiCommands.php
+diff --git a/api/src/Commands/RealisticDummyContentApiCommands.php b/api/src/Commands/RealisticDummyContentApiCommands.php
 new file mode 100644
-index 0000000..08f3969
+index 0000000..71760e9
 --- /dev/null
-+++ b/realistic_dummy_content/api/src/Commands/RealisticDummyContentApiCommands.php
++++ b/api/src/Commands/RealisticDummyContentApiCommands.php
 @@ -0,0 +1,35 @@
 +<?php
 +
