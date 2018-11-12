@@ -1,0 +1,18 @@
+diff --git a/vertical_tabs_config.module b/vertical_tabs_config.module
+index e135f6f..ce57587 100644
+--- a/vertical_tabs_config.module
++++ b/vertical_tabs_config.module
+@@ -19,11 +19,9 @@ function vertical_tabs_config_form_node_form_alter(&$form, FormStateInterface $f
+ 
+   // 1. Vertical tabs visibility.
+   $config = vertical_tabs_config_get_config();
+-  $current_path = \Drupal::service('path.current')->getPath();
+-  $path = explode('/', $current_path);
+-
+-  if ($path[1] == 'node' && ($path[2] == 'add' || $path[3] == 'edit')) {
++  $route_name = \Drupal::routeMatch()->getRouteName();
+ 
++  if(strstr($route_name, 'node.add.') || preg_match("/entity\.node\..*\.edit_form/", $route_name)) {
+     // Maybe in $form there is the content_type like in D7.
+     $content_type = str_replace('node_', '', $form_id);
+     $content_type = str_replace('_edit_form', '', $content_type);
